@@ -18,14 +18,14 @@ namespace AspNetCoreBindingSourcesApp.Controllers
         [HttpPost]
         public IActionResult PostAsJson([FromBody] PersonViewModel model)
         {            
-            return this.Ok($"{model} (posted as JSON)");
+            return this.Ok($"{model} (posted to {nameof(PostAsJson)})");
         }
 
 
         [HttpPost]
         public IActionResult PostAsForm(PersonViewModel model)
         {
-           return this.Ok($"{model} (posted as FORM)");
+           return this.Ok($"{model} (posted to {nameof(PostAsForm)})");
         }
     }
 }

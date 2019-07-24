@@ -1,11 +1,34 @@
-﻿
-<div>
-    <button id="submit_as_json">Submit Sample Data As JSON</button>
-    <button id="submit_as_form">Submit Sample Data As Form</button>
-</div>
+﻿<h4>Custom Model Binder Strange Behavior Demo</h4>
 
 <div>
-    <h4>Result</h4>
+    The two buttons below use AJAX to issue POST request with the same data
+    resembling the PersonViewModel:
+</div>
+
+<br />
+<br />
+
+<div>
+    <button id="submit_as_json">Submit Sample Data As JSON</button>
+    <br />
+    Submits the data as application/json payload; the StringModelBinder is <strong>not</strong> used
+</div>
+
+<br />
+<br />
+
+<div>
+    <button id="submit_as_form">Submit Sample Data As Form</button>
+    <br />
+    Submits the data as application/x-www-form-urlencoded payload; the StringModelBinder custom binder <strong>is</strong> used,
+    which is indicated as '(sufix from StringModelBinder)' appended to the Name field.
+</div>
+
+<br />
+<br />
+
+<div>
+    <h4>Result:</h4>
     <span id="result"></span>
 </div>
 
@@ -14,11 +37,11 @@
         $(document).ready(function () {
             var resultSpan = $("#result");
             $("#submit_as_json").click(function () {
-                var data = JSON.stringify({ Id: 2, Name: "JSON" });
+                var data = JSON.stringify({ Id: 1, Name: "Fred" });
                 postData(data, '@Url.Action("PostAsJson")', 'application/json');
             });
             $("#submit_as_form").click(function () {
-                var data = "Id=3&Name=FORM";
+                var data = "Id=1&Name=Fred";
                 postData(data, '@Url.Action("PostAsForm")');
             });
 
