@@ -1,0 +1,44 @@
+﻿
+<div>
+    <button id="submit_as_json">Submit Sample Data As JSON</button>
+    <button id="submit_as_form">Submit Sample Data As Form</button>
+</div>
+
+<div>
+    <h4>Result</h4>
+    <span id="result"></span>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var resultSpan = $("#result");
+            $("#submit_as_json").click(function () {
+                var data = JSON.stringify({ Id: 2, Name: "JSON" });
+                postData(data, '@Url.Action("PostAsJson")', 'application/json');
+            });
+            $("#submit_as_form").click(function () {
+                var data = "Id=3&Name=FORM";
+                postData(data, '@Url.Action("PostAsForm")');
+            });
+
+            function postData(data, url, contentType) {
+                var settings = {
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    success: function (data) {
+                        resultSpan.text("Success: " + data);
+                    },
+                    error: function (error) {
+                        resultSpan.text("Failure: " + error);
+                    }
+                };
+                if (contentType) {
+                    settings.contentType = contentType;
+                }
+                $.ajax(settings);
+            }
+        });
+    </script>
+}
